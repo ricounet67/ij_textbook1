@@ -4,32 +4,28 @@
 \section{Basics of Basics}
 
 Handling of digital images in scientific research requires knowledge on
-the characteristics of digital image. Signals we see in images are
-quantitative information. We are taking pictures, but we are also
-measuring signal by numbers. In this section, we learn the very basics
-of the numerical nature of digital images. Inappropriate handling not
+the characteristics of digital images. A digital image translates to numbers and is hence a quantitative signal by nature. In this section, we learn the very basics of the numerical nature of digital images. Inappropriate handling not
 only lowers the quality of your analysis, but it could also be possible
-that your processing is considered as the "manipulation
+that your processing is considered as a "manipulation
 of data". For this latter point, please also refer to
-\citet{Rossner2004}. There are some limits on image processing
+\citet{Rossner2004}. There are some limits on acceptable image processing
 to maintain the scientific validity. Standards on scientific image
 processing could be found in "Digital Imaging:
-Ethics" by \citet{cromey2007}. 
+Ethics" by \citet{Cromey2010}. 
 
 \subsection{Digital image is a matrix of numbers}
 \label{subsec:imageEQmatrix}
-Digital image we see on computer screen is made up of pixels. We can see
-individual pixel by zooming up the image using magnifying tool\footnote{\
+A digital image we display on a computer screen is made up of pixels. We can see
+individual pixel by zooming up the image using the magnifying tool\footnote{\
 Zooming in / out of the image does not change the content of the image.}. Width
 and height of the image are defined by the number of pixels in x and y
 directions. Each pixel has brightness, or intensity (or more strictly,
 amplitude) somewhere between black and white represented as a number. Within
-image file saved in computer hard disk, intensity values of pixels are
-written. The value is converted to the grayness of that pixel on monitor screen.
+an image file saved in a computer hard disk, the intensity value of each pixel is written. The value is converted to the grayness of that pixel on monitor screen.
 We usually do not see these values, or numbers, in the image displayed on
 monitor, but we could access these numbers in the image file by converting 
 the image file to a text file \footnote{It's also possible in a limited way by
-putting mouse pointer over the image and checking the number indicated in
+moving the mouse pointer over the image and checking the number indicated in
 ImageJ menu bar.}.
 
 \begin{indentexercise}{1}
@@ -51,14 +47,14 @@ make a new image with the following parameters:
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5cm]{img/CMCIBasicCourse201102-img1.png}
+\includegraphics[width=5cm]{fig/CMCIBasicCourse201102-img1.png}
 \caption{ New Image Dialog}
 \label{fig:img1}
 \end{center}
 \end{figure}
 Clicking "OK", you will see a new window showing a black image (Fig.
-\ref{fig:mostbasic}). At the top of the window you could see the file dimension ("10 x 15"), 
-bit-depth and the file size (I explain these values later.
+\ref{fig:mostbasic}). At the top of the window you can see the file dimension ("10 x 15"), 
+bit-depth and the file size (I will explain these values later.
 ). Take the pen tool and draw some shape (what ever you want. 
 If you do not see anything drawn, then you need to change the color of the pen to white by 
 \ijmenu{[Edit > Option > Colors\ldots]} and set Foreground Color to white). 
@@ -85,10 +81,10 @@ The image now has a dark gray dot, not black nor white.
 \begin{figure}[htbp]
 \centering
 \subfloat[]{\label{fig:img2}
-\includegraphics[width=3cm]{img/CMCIBasicCourse201102-img2.jpg}
+\includegraphics[width=3cm]{fig/CMCIBasicCourse201102-img2.jpg}
 }
 \subfloat[]{\label{fig:img3}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img3.jpg}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img3.jpg}
 }
 \caption{ A digital image (b) is a matrix of numbers (b).}
 \label{fig:mostbasic}
@@ -98,56 +94,53 @@ The image now has a dark gray dot, not black nor white.
 \begin{figure}[htbp]
 \centering
 \subfloat[]{\label{fig:img4}
-\includegraphics[width=3cm]{img/CMCIBasicCourse201102-img4.jpg}
+\includegraphics[width=3cm]{fig/CMCIBasicCourse201102-img4.jpg}
 }
 \subfloat[]{\label{fig:img5}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img5.jpg}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img5.jpg}
 }
 \caption{ White line (a) corresponds to non-zero numbers (b).}
 \label{fig:mostbasic2}
 \end{figure} 
 
 
-Note: In hard disk, pixel values are not written as a 2D matrix but as
-a single array. Matrix is reproduced after loading according to the width
+Note: The pixel values are not written to the hard disk as a 2D matrix but as
+a single array. The matrix is only reproduced upon loading according to the width
 and height of the image. Pixel values of image stacks (3D or 4D), are
 also in 1D array in hard disk. 3D or 4D matrix is reproduced according
 to additional information such as slice and channel number. Such
 information is written in the
 "header" region of the file, which
 precedes the "data" region of the
-file where the 1D array of pixel array is contained. Header structure
-is various depending on the file format, such as TIFF or BMP (we will
+file where the 1D array of pixel array is contained. The header structure
+ depends on the file format, many such formats exist (the most common are TIFF or BMP, we will
 see more in "file formats and
 header" section). 
 
 
 
 \subsection{Image Bit-Depth}
-
+\label{subsec:bitdepth}
 Image file has a defined bit depth. You might have already
 heard terms like "8-bit" or
 "16-bit" and these are the bit depth. 8-bit
 means that the gray-scale of the image has $2^{8} = 256$
 steps: in other words, the grayness between black and white is divided
-into 256 steps. 16-bit means $2^{16} = 65536$ steps. The
-difference is that with 16-bit, one can assign gray-level much more
-precise for each pixel; in other words "grayness
-resolution" is higher. Microscope images are generated
+into 256 steps. In the same way 16-bit translates to $2^{16} = 65536$ steps, hence for 16-bit images one can assign gray-level to pixels in a much more
+precise way; in other words "grayness
+resolution" is higher. 
+
+\begin{quote}
+Microscope images are generated
 mostly by CCD camera (or something similar). 
 CCD chip has a matrix of sensors. Each sensor receives
 photons and converts the number of photons to a value for a
 pixel at the corresponding position within the image. Larger bit-depth
-enables larger dynamic range with more precise conversion results.~ For
-this reason, larger bit-depth is normally recommended for quantitative
-imaging. Draw back is that it takes longer time for data transferring
-as the bit-depth becomes larger. This may in turn limits the time
-resolution of image sequences. \\
-~\\
+enables more detailed conversion of signal intensity (infinite steps) to pixel values (limited steps).
+\end{quote}
 Why do we use "$2^{n}$"? This
-is because computer uses binary numbers. Minimum units are then 0 or 1.
-8-bit means for example a number to be represented as 8-digits binary
-number, something like "$00001010$" ( $= 10$ in
+is because computers code the information with binary numbers. In binary the elementary units are called bits and the only possible values are 0 and 1 (in the decimal system these units are called digits and can take values from 0 to 9).
+Coding values with 8-bit means for example that this value is represented as an 8 bit number, something like "$00001010$" ( $= 10$ in
 decimal). Then the minimum value is =
 "$00000000$" ("0" in decimal) and the maximum is $11111111$
 ("255" in decimal). 8-bit image allows 256
@@ -158,10 +151,10 @@ there are 65536 steps.
 
 
 We must not forget that the nature is continuous. In conventional
-mathematics you learn in school, decimal point enables you to represent
-infinite steps between 0 and 1. But digitization of the nature loses
-the infinite steps such that 0.44 will be rounded to 0 and 0.56 will be
-1. Thus, the bit-depth limits the resolution of the analogue to digital
+mathematics (as you learn in school), a decimal point enables you to represent
+infinite steps between 0 and 1. But by digitizing the nature we lose
+the ability to encode infinite steps such that 0.44 might be rounded to 0 and 0.56 to
+1. Thus, the bit-depth limits the resolution of the analog to digital
 conversion (AD conversion). Higher bit depth generally allows higher
 resolution.\\
 \\
@@ -171,12 +164,12 @@ represented in integer but floating-point type enables decimal points
 (real number) for the pixel value such as
 "15.445". Though 32-bit floating point
 image can be used for image calculation, many functions in ImageJ do
-not~work properly so cares should be taken to use this image type. If
+not handle them properly, so cares should be taken when using this image format. If
 you want to know more about the 32-bit format, read the following box
-(a bit complicated; you could just pass through)
+(a bit complicated; you could just pass through):
 
 \begin{quotation}
-32 bit FLOATING POINT images utilizes efficient use of the 32 bits.
+32 bit FLOATING POINT images utilize efficient use of the 32 bits.
 Instead of using 32 bits to describe 4,294,967,296 integer numbers, 23
 bits are allocated to a fraction, 8 bits to an exponent, and 1 bit to a
 sign, as follows:\\
@@ -207,10 +200,24 @@ allows for smoother dynamic and tonal range compression.\\
 (Quote from \url{http://www.dpreview.com/learn/?/key=bits})
 \end{quotation}
 
+\subsubsection{Guide Line for the Choice of Bit-Depth}
+
+In fluorescence microscopy, the choice of whether to use higher bit-depth format depends on a balance among the intensity of excitation light,  the emision signal intensity, the sensitivity of photon detector, quantum efficiency\footnote{Quantum effeciency is a measure of proportion of photons converted to electric impluse. For example, QE of photographic film is ca. 10\%, that of human eye is 20\%. Recent CCD allows 80\%. } and the gain. If the signal is bright enough then there would good S/N that you could simply use a lower bit depth but if the signal is too bright then you might need to use a higher bit depth just to avoid saturating the bits. This balancing could also be controlled by changing the gain of the camera. In the end, the choice of bit depth depends on what type of measurement you want to achieve. 
+If you only need to determine the shape of the target object (``segmentation''), you might not need a higher bit depth image as you could try to adjust the imaging condition rather than increasing the file size of the image. 
+On the other hand, if you are trying to measure protein density, a higher bit depth allows you to have more precise measurements so a larger bit-depth is recommended. A draw back is that it takes longer time for data transferring as the bit-depth becomes larger. This may in turn limits the time resolution of image sequences.
+The balancing between imaging conditions and the type of  analysis afterward is very much coupled and should be thought well before your experiment. More details on this discussion could be found in microscopy textbook such as \cite{Pawley2006}. 
+
+The choice of bit depth depends on deals with noise. Here is an explanation from S\'{e}bastien Tosi:
+\begin{quote}
+When minute details need to be preserved in both high and low intensity regions of a sample a large bit-depth is necessary to ensure a good image quality. Indeed for low bit-depth if the signal level is adjusted to avoid saturation in the brightest regions there is a high risk to end up coding the signal of the faintest regions over only very few bits, which has a very detrimental effect on the image quality. A large bit depth is hence necessary to provide a fine slicing of the intensity range while provisioning a sufficient headroom to avoid saturation and as such always the safest option. 
+
+It can be mathematically derived that quantizing a continuous signal to a finite number of levels induces an Additive White (un-correlated) noise commonly called ``quantization noise''. The level of this noise source is conditioned by the number of levels that are allowed (over the effective range of the signal). Depending on the image intrinsic noise (shot noise at a given photon regime) and the noises coming from the detector and the amplifier electronics this noise can eventually be neglected. One should always make sure that this noise source can be neglected to avoid trashing valuable (available) information.
+
+(personal communication, S\'{e}bastien Tosi)
+\end{quote}
 
 
-
-\subsection{Converting the bit-depth of image}
+\subsection{Converting the bit-depth of an image}
 
 In many occasions, you might want to decrease the bit-depth of image
 simply to reduce the file size (16-bit file becomes half the file size
@@ -225,13 +232,13 @@ study its effect and associated possible errors.
 
 \begin{indentexercise}{1}
 Let's first open a 16-bit image from the sample. 
-\ijmenu{[File > Open > m51.tif]}. Choose line selection tool and draw a vertical line 
+If you have the course plugin installed, choose the menu item \ijmenu{[EMBL > Samples > m51.tif]}. Otherwise, if you have sample images saved in your local machine, open the image by \ijmenu{[File > Open > m51.tif]}. Choose the line selection tool and draw a vertical line 
 (should be yellow by default: called line ROI). Then do \ijmenu{[Analyze > Plot Profile\ldots]}. 
 A window pops up. See figures \ref{fig:img6} and \ref{fig:img7}.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5cm]{img/CMCIBasicCourse201102-img6.jpg}
+\includegraphics[width=5cm]{fig/CMCIBasicCourse201102-img6.jpg}
 \caption{Setting a vertical line Roi.}
 \label{fig:img6}
 \end{center}
@@ -239,7 +246,7 @@ A window pops up. See figures \ref{fig:img6} and \ref{fig:img7}.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5.694cm,height=3.44cm]{img/CMCIBasicCourse201102-img7.jpg}
+\includegraphics[width=5.694cm,height=3.44cm]{fig/CMCIBasicCourse201102-img7.jpg}
 \caption{profile of that ROI}
 \label{fig:img7}
 \end{center}
@@ -252,9 +259,9 @@ The peak corresponds to the bright spot at the center of the image.
 
 Let's convert the image to 8-bit. First check the state
 of "Conversion" option by
-\ijmenu{[Edit > Option > Conversion]}. Be
-sure that the checkbox "scale when
-converting" is ON. 
+\ijmenu{[Edit > Option > Conversion]}. Make
+sure to tick "scale when
+converting". 
 
 
 
@@ -262,7 +269,7 @@ Do \ijmenu{[Image > Type > 8-bit]}. The line
 ROI is still there after the conversion. Do \ijmenu{[Analyze > Plot Profile\ldots] }again. 
 You will find another graph pops up. Compare the previous profile (16-bit) and the new profile (8-bit).
 
-Conversion causes changes in the y-value. Shapes of the profile look
+Conversion modifies the y-value. Shapes of the profile look
 mostly similar, so if you normalize two images, the curve may overlap.
 This is because the image is scaled according to the following
 formula.
@@ -279,39 +286,38 @@ $max(I_{16}(x,y))$: the maximum value of 16-bit image\\
 $I_{8}(x, y)$: 8-bit image\\
 
 
-Save the line ROI you created by \ijmenu{[Analyze Tools
-ROI manager\ldots]}. A small dialog window pops up, so
+Save the line ROI you created by pressing "t" or clicking on "add" in the ROI manager (you can open the manager with \ijmenu{[Analyze Tools
+ROI manager\ldots]}). A small dialog window pops up, so
 click "Add" button in the right side.
-Number appears in the left side, which indicates the name for the ROI
-you made. ROI manager stores coordinates of the start / end points of
-the line ROI.
+The numbers in the left column are names of the ROIs
+you add to the manager (they correspond to the coordinates of the start / end points of the ROI).
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5.847cm,height=3.863cm]{img/CMCIBasicCourse201102-img8.png}
+\includegraphics[width=5.847cm,height=3.863cm]{fig/CMCIBasicCourse201102-img8.png}
 \caption{Conversion Option. Scaling is turned off in this case. }
 \label{fig:img8}
 \end{center}
 \end{figure}
 
-Now, change the option \ijmenu{[Edit > Option >
-Conversion]} that the checkbox "scale when
-converting" is OFF. Open the 16-bit image again by
+Now, change the option in \ijmenu{[Edit > Option >
+Conversion]} by un-ticking "scale when
+converting". Open the 16-bit image again by
 \ijmenu{[File > Open > m51.tif]}. Then
 again, do \ijmenu{[Image > Type > 8-bit]}.
-Apparent difference you see is that now the picture looks like a
-overexpose image. Find the ROI manager window and click the ROI number
+An apparent difference you can observe is that now the picture looks like a
+overexposed image. Find the ROI manager window and click the ROI number
 you stored in above. Same line ROI will appear in the new window. Then
-do \ijmenu{[Analyze > Plot Profile\ldots]}. Third profile
-shows very different shape compared to previous ones. This is because
-the values above 255 is now considered as
+do \ijmenu{[Analyze > Plot Profile\ldots]}. This third profile
+has a very different shape compared to the previous ones. This is because
+the values above 255 are now considered as
 "saturated", which means that what ever the
 value is, numbers larger than 255 becomes 255.
 
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=5cm]{img/CMCIBasicCourse201102-img9.jpg}
+\includegraphics[width=5cm]{fig/CMCIBasicCourse201102-img9.jpg}
 \caption{ m51 image converted to 8-bit without scaling.}
 \label{fig:img9}
 \end{center}
@@ -321,18 +327,18 @@ value is, numbers larger than 255 becomes 255.
 \begin{figure}[H]
 \centering
 \subfloat[]{\label{fig:img10}
-\includegraphics[width=5cm]{img/CMCIBasicCourse201102-img10.jpg}
+\includegraphics[width=5cm]{fig/CMCIBasicCourse201102-img10.jpg}
 }
 \subfloat[]{\label{fig:img11}
-\includegraphics[width=5cm]{img/CMCIBasicCourse201102-img11.jpg}
+\includegraphics[width=5cm]{fig/CMCIBasicCourse201102-img11.jpg}
 }
-\caption{ (a) Intensity profile of \ref{fig:img5}. If the conversion was done with scaling, then the profile would look like (b). }
+\caption{ (a) Intensity profile of \ref{fig:img5}. If the conversion is done with scaling, then the profile would look like (b). }
 \label{fig:8bitConverted}
 \end{figure} 
 
 \end{indentexercise}
 
-When you do conversion, very different results could appear depending on
+When you perform a conversion, very different results could appear depending on
 how you scale, like we have just seen. But in many cases, you do not
 recognize such changes just by looking at the image: for this reason,
 one should keep in mind that the conversion may
@@ -342,7 +348,7 @@ one should keep in mind that the conversion may
 
 \subsection{Math functions}
 
-Digital image is a matrix of numbers. We can calculate images like usual
+A digital image is a matrix of numbers. We can calculate images like usual
 math. If there is a flat image with pixel value of 10, and if you add 1
 to the image, then all pixel values become 11. We think about a pixel
 at $(5, 10)$, and we write down the calculation as follows:
@@ -392,16 +398,16 @@ Commands for mathematical operations in ImageJ are as follows.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=3.8cm]{img/CMCIBasicCourse201102-img12.png}
+\includegraphics[width=3.8cm]{fig/CMCIBasicCourse201102-img12.png}
 \caption{ Add dialog.}
 \label{fig:img12}
 \end{center}
 \end{figure}
 
 
-Add 10 to the image: Do \ijmenu{[Process > Math > Add{\dots]}}. A dialog window pops up so you could
-input 10. Press OK button. Now, place the mouse pointer over the image
-to check that the pixel values actually became 10. Then select the pen
+Add 10 to the image: Do \ijmenu{[Process > Math > Add{\dots]}}. A dialog window pops up and you can for instance 
+input 10 and press OK. Now, place the mouse pointer over the image
+to check that the pixel values actually become 10. Then select the pen
 tool from the tool bar, and draw a diagonal line in the window. Check
 again the pixel value. The line you just drew has pixel value 255. Then
 add 10 again to the image by \ijmenu{[Process > Math > Add{\dots]}}. Check the pixels by placing the pointer.
@@ -411,7 +417,7 @@ Since the image bit-depth is 8, the available number is only between 0
 and 255. When you add 10 to a pixel with its value 255, the calculation
 returns 255 because the number
 "265" does not exist in 8-bit
-world. The similar limitation applies for other calculations also. If
+world. A similar limitation applies to other mathematical operations too. If
 you multiply a pixel value 100 by 3, the answer in normal mathematics
 is 300. But in 8-bit world, that pixel becomes 255. 
 
@@ -422,7 +428,7 @@ should see the image turns to gray from black). Check pixel values by
 placing the pointer above the image. Now, Divide the image by 3
 (\ijmenu{[Process > Math > Divide{\dots]}}).
 Check the result by placing the mouse over the image. The pixel value
-is now 33. Since there is no decimal places in 8-bit, the division
+is now 33. Since there is no decimal placeholder in 8-bit, the division
 returns the rounded value of (100 / 3 = 33). One could also divide
 image by any real number, such as 3.1415. The answer will be in integer
 in all cases in 8-bit and 16-bit. In case of floating point 32-bit
@@ -436,7 +442,7 @@ Simple Math on 32-bit Image: prepare a new
 select 32-bit from the "type"
 drop-down menu). Then add 100 to the image. Check that the image pixel
 values are all 100. Then divide the image by 3. Check the answer. This
-time, answer has decimal places. 
+time the result has a decimal placeholder. 
 \end{indentexercise}
 
 Bit-depth limitation of digital image is very important for you to know,
@@ -448,9 +454,9 @@ is invalid}.
 
 \subsection{Image Math }
 
-In the precious section we calculated using single image. Likewise, we
-can do calculation using two images. For example, if there are two
-images with a same dimension, and 
+In the previous section we operated on a single image. Likewise, we
+can perform computations involving two images. For example, assuming two
+images \textit{f} and \textit{g} with same dimensions, and 
 
 \begin{equation}
 f(5, 10) = 100
@@ -462,87 +468,89 @@ g(5, 10) = 50
 
 \ldots meaning that the pixel value at the position $(5, 10)$ in the
 first image \textit{f} is 100 and in the second image g is 50, we can
-add these values and have a third image
+add these values and get a new image \textit{h} such that:
 
 \begin{equation}
 h(5, 10) = f(5, 10) + g(5, 10) = 100 + 50 = 150
 \end{equation}
 
-General form is then as follows that applies to all pixels in the
-image:
+This holds true for any pixel at position $(x, y)$:
 
 \begin{equation}
 h(x, y) = f(x, y) + g(x, y)
 \end{equation}
 
 Note that this only works when the image width and height are
-identical. Above is an example of addition. More numerical assignments
+identical. Above is an example of addition. More numerical operations
 are available in ImageJ: \ 
 
 \begin{center}
 \tablehead{}
 \begin{supertabular}{|m{4.748cm}|m{6.282cm}|}
 \hline
-\selectlanguage{english}\sffamily Add &
-\selectlanguage{english}\sffamily img1 = img1+img2\\\hline
-\selectlanguage{english}\sffamily Subtract &
-\selectlanguage{english}\sffamily img1 = img1-img2\\\hline
-\selectlanguage{english}\sffamily Multiply &
-\selectlanguage{english}\sffamily img1 = img1*img2\\\hline
-\selectlanguage{english}\sffamily Divide &
-\selectlanguage{english}\sffamily img1 = img1/img2\\\hline
-\selectlanguage{english}\sffamily AND &
-\selectlanguage{english}\sffamily img1= img1 AND img2\\\hline
-\selectlanguage{ngerman}\sffamily OR &
-\selectlanguage{ngerman}\sffamily img1 = img1 OR img2\\\hline
-\selectlanguage{ngerman}\sffamily XOR &
-\selectlanguage{ngerman}\sffamily img1 = img1 XOR img2\\\hline
-\selectlanguage{ngerman}\sffamily Min &
-\selectlanguage{ngerman}\sffamily img1 = min(img1,img2)\\\hline
-\selectlanguage{ngerman}\sffamily Max &
-\selectlanguage{ngerman}\sffamily img1 = max(img1,img2)\\\hline
-\selectlanguage{ngerman}\sffamily Average &
-\selectlanguage{ngerman}\sffamily img1 = (img1+img2)/2\\\hline
-\selectlanguage{ngerman}\sffamily Difference &
-\selectlanguage{ngerman}\sffamily img1 =
+ Add &
+ img1 = img1+img2\\\hline
+ Subtract &
+ img1 = img1-img2\\\hline
+ Multiply &
+ img1 = img1*img2\\\hline
+ Divide &
+ img1 = img1/img2\\\hline
+ AND &
+ img1= img1 AND img2\\\hline
+ OR &
+ img1 = img1 OR img2\\\hline
+ XOR &
+ img1 = img1 XOR img2\\\hline
+ Min &
+ img1 = min(img1,img2)\\\hline
+ Max &
+ img1 = max(img1,img2)\\\hline
+ Average &
+ img1 = (img1+img2)/2\\\hline
+ Difference &
+ img1 =
 {\textbar}img1-img2{\textbar}\\\hline
-\selectlanguage{ngerman}\sffamily Copy &
-\selectlanguage{ngerman}\sffamily img1 = img2\\\hline
+ Copy &
+ img1 = img2\\\hline
 \end{supertabular}
 \end{center}
 
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 \begin{center}
-\includegraphics[width=10.945cm,height=4.323cm]{img/CMCIBasicCourse201102-img13.png}
+\includegraphics[width=10.945cm,height=4.323cm]{fig/CMCIBasicCourse201102-img13.png}
 \caption{Taken from ImageJ web site. \url{http://rsb.info.nih.gov/ij/docs/menus/process.html}}
 \label{fig:img13}
 \end{center}
 \end{figure}
+
+The figure above represents the result of various image math operations. 
 
 \begin{indentexercise}{1}
 Image Math -- subtraction:\\
 Open Images \textbf{cells\_ActinDNA.tif} and \textbf{cells\_Actin.tif}.
 The first image is containing images from two channels. One is actin
 labeled, and the other is DNA labeled. We isolate the DNA signal out of
-the first image by image subtraction. Do \ijmenu{[Process > Image > Calculator\ldots]}. In the pop-up window, choose the appropriate combination to subtract \textbf{cells\_Actin.tif} from \textbf{cells\_ActinDNA.tif}. Don't forget to turn on the checkbox "Create New Window". 
+the first image by image subtraction. Do \ijmenu{[Process > Image > Calculator\ldots]}. In the pop-up window, choose the appropriate combination to subtract \textbf{cells\_Actin.tif} from \textbf{cells\_ActinDNA.tif}. Don't forget to tick "Create New Window". 
 \end{indentexercise}
 
 
 \subsection{RGB image}
+\label{subsec:rgb}
 
-Color images are in RGB format (could also be so pseudo-color image, or
+Color images are in RGB format (could also be a so-called pseudo-color image, or
 8-bit color, but this is just because of LUT. See section \ref{subsec:LUT}).
 Another popular format is "CMKY" but this
 format is optimized for printing purpose (you may have heard it already
-when you want to print something in Photolab). RGB stands for three
+when printing something in Photolab). RGB stands for three
 primary colors. Red, Green and Blue. If all of them are bright at the
 same intensity, then the color is white (or gray). If only red is
 bright, then the color is red, and so on. A single RGB image thus has
 three different channels. In other words, three layers of different
 images are overlaid in a single RGB image. Each channel (layer) has a
 bit depth of 8-bit. So a single RGB image is 24-bit image. For this,
-the file size of color pics becomes three times larger than a grayscale
+the file size of color pics becomes three times larger than a gray scale
 8-bit image. Don't save 16bit image in RGB format,
 since you lose a lot of information, for automatic conversion from 16
 to 8 bit takes place. 
@@ -550,14 +558,14 @@ to 8 bit takes place.
 \begin{indentexercise}{1}
 Working with RGB image:
  
-\item (a) Open the image \textbf{RGB\_cell.tif} by \ijmenu{[File > Open]}. Then split the color image to 3 different frames \ijmenu{[Image > Color > Split Channels]}. 
+\item (a) Open the image \textbf{RGB\_cell.tif} by either \ijmenu{[EMBL > Samples]} or \ijmenu{[File > Open]}. Then split the color image to 3 different images \ijmenu{[Image > Color > Split Channels]}. 
 
-\item (b) Merge three frames by \ijmenu{[Image Color > Merge Channels\ldots]}. 
+\item (b) Merge back the images with \ijmenu{[Image Color > Merge Channels\ldots]}. 
 
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=5cm]{img/dialog_colormerge.png}
+\includegraphics[width=5cm]{fig/dialog_colormerge.png}
 \caption{ Color Merge Dialog}
 \label{fig:img14}
 \end{center}
@@ -569,12 +577,12 @@ In the dialog window, choose an image name for each channel. Uncheck
 swapping color assignments to see the effect. 
 
 \item (c) Working on each channel separately: Close all windows and
-open the "RGB\_cell.tif". Do
+open the "RGB\_cell.tif" again. Do
 \ijmenu{[Image > Color > Channel Tools\ldots]}. Then click button "More" and select "Create Composite".
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img15.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img15.png}
 \caption{ Channel Tool}
 \label{fig:img15}
 \end{center}
@@ -585,7 +593,7 @@ of R, G or B. Each layer can be processed individually.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img16.png}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img16.png}
 \caption{ Composite image. Note slider at the bottom for switching between three channels.}
 \label{fig:img16}
 \end{center}
@@ -595,17 +603,17 @@ Using Channel Tools again,
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img17.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img17.png}
 \caption{ Channel Tool, now only selected for Channel 2.}
 \label{fig:img17}
 \end{center}
 \end{figure}
 
-Choose "color" from the pull-down tab, instead of "Composite". Select channel 2 (in this image, this will be Green channel). Select a part of the image using Rectangular ROI. 
+Choose "color" from the pull-down tab, instead of "Composite". Select channel 2 (in this image, this will be Green channel). Select a part of the image using a rectangular ROI. 
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img18.png}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img18.png}
 \caption{ ROI selection, in channel 2. Note the position of slider.}
 \label{fig:img18}
 \end{center}
@@ -615,7 +623,7 @@ Then do \ijmenu{[Edit > Clear]}. This will pop up a window.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img19.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img19.png}
 \caption{ Asking you whether you want to process all channels.}
 \label{fig:img19}
 \end{center}
@@ -625,7 +633,7 @@ Click No, because you want to process only one channel.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img20.png}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img20.png}
 \caption{ Channel 2 pixel values inside selected ROI becomes 0.}
 \label{fig:img20}
 \end{center}
@@ -635,7 +643,7 @@ Click No, because you want to process only one channel.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img21.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img21.png}
 \caption{ Color selection dialog.}
 \label{fig:img21}
 \end{center}
@@ -647,7 +655,7 @@ Select "Composite" in the pull-down tab of channel tool.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img22.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img22.png}
 \caption{ Choosing Composite, all channels visual.}
 \label{fig:img22}
 \end{center}
@@ -657,26 +665,35 @@ Resulting image should look like below.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img23.png}
-\caption{ Only channel2 is devoid of image within the selected ROI.}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img23.png}
+\caption{ Only channel 2 is devoid of image within the selected ROI.}
 \label{fig:img23}
 \end{center}
 \end{figure}
 
-In this case, green channel intensity in green channel ROI is now set to 0 ("clear"). You could do such
-processing of single channel by simply selecting a channel by horizontal scroll bar and do the processing directly, such as drawing square ROI and deleting that part in that channel in "composite" view. 
+In this case, the intensities of the green channel in the ROI are now set to 0 ("clear"). You could do such
+processing of single channel by simply selecting a channel with the horizontal scroll bar and do the processing directly, such as drawing square ROI and deleting that part in that channel in "composite" view. 
 \end{indentexercise}
 
 \subsection{Look-Up Table }
 \label{subsec:LUT}
 
-We now look at how matrix of numbers is converted to actual image. Let"s think about 
+We now look at how the matrix of numbers is converted to an image. Let's think about 
 a row of pixels with increasing pixel values from 0 to 255 (so there are 256 pixels in this row). 
 Computer monitor will show a gradient of intensity that is linearly increasing its brightness 
 from black to white. This is because the software is giving a command to the monitor, 
 such that "this pixel $(x, y)$ is 158 so the corresponding voltage required for this position $(x, y)$ 
 in the screen should be **mV". For this command to be composed, software needs a so called "look-up table" (LUT). 
 
+The default LUT is the gray scale, that assigns black to white from 0 to 255 in the 8-bit image. In the 16-bit image gray scale will be valued from 0 to 65535 between black and white. LUTs are not limited to such grayscales, it could be also colored. We call such colored LUT as ``pseudo-color''. In case of the ``spectrum'' LUT, 0 is red and 100 is green  (see \ref{fig:lutscheme}). The most important point to understand the LUT concept is that with same data, the appearance of the image changes when different LUT is used.  
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig/LUT.pdf}
+\caption{Look-Up Table is a table that defines appearance of pixel values as an image. With same pixel values, how they are colored could be different, which depends on the selection of LUT. }
+\label{fig:lutscheme}
+\end{center}
+\end{figure}
 
 This is just like a situation when you start checking a menu in a
 restaurant with limited amount of money in your pocket. Say you want to
@@ -694,14 +711,16 @@ sliding your sight to the left and find out which pizza to order).
 
 
 
+
+
 \begin{indentexercise}{1}
 For 8-bit images, there is a default LUT normally called "grayscale". 
 To see the LUT, open the image \textbf{Cell\_Colony.jpg} and then 
 do \ijmenu{[Image > Color > Show LUT]}. LUT window pops up showing 
 the relationship between pixel value and pixel intensity. 
-Try change the LUT by \ijmenu{[Image > Lookup Tables >Spectrum]}. 
+Try to change the LUT by \ijmenu{[Image > Lookup Tables >Spectrum]}. 
 Pixel value does not change by this operation, but the pixel intensity changes 
-that the image appears differently now. Check the LUT again by do \ijmenu{[Image > Color > Show LUT]}. 
+that the image appears differently now. Check the LUT again by doing \ijmenu{[Image > Color > Show LUT]}. 
 Actual numbers in each LUT could be checked using ``'list' button at the left-bottom corner of each LUT window. 
 \end{indentexercise}
 
@@ -709,10 +728,10 @@ Actual numbers in each LUT could be checked using ``'list' button at the left-bo
 \begin{figure}[H]
 \centering
 \subfloat[]{\label{fig:img24}
-\includegraphics[width=6.371cm,height=6.853cm]{img/CMCIBasicCourse201102-img24.jpg}
+\includegraphics[width=6.371cm,height=6.853cm]{fig/CMCIBasicCourse201102-img24.jpg}
 }
 \subfloat[]{\label{fig:img25}
-\includegraphics[width=6.431cm,height=6.962cm]{img/CMCIBasicCourse201102-img25.jpg}
+\includegraphics[width=6.431cm,height=6.962cm]{fig/CMCIBasicCourse201102-img25.jpg}
 }
 \caption{ Grayscale LUT (a) converted to spectrum LUT (b).}
 \label{fig:LUTconversionImages}
@@ -722,16 +741,23 @@ Actual numbers in each LUT could be checked using ``'list' button at the left-bo
 \begin{figure}[H]
 \centering
 \subfloat[]{\label{fig:img26}
-\includegraphics[width=6.055cm,height=4.805cm]{img/CMCIBasicCourse201102-img26.jpg}
+\includegraphics[width=6.055cm,height=4.805cm]{fig/CMCIBasicCourse201102-img26.jpg}
 }
 \subfloat[]{\label{fig:img27}
-\includegraphics[width=6.103cm,height=4.833cm]{img/CMCIBasicCourse201102-img27.jpg}
+\includegraphics[width=6.103cm,height=4.833cm]{fig/CMCIBasicCourse201102-img27.jpg}
 }
 \caption{ (a) Grayscale LUT and (b) spectrum LUT}
 \label{fig:LUT[lots}
 \end{figure} 
 
-\subsection{Image File Formats: Header and Data, Stacks, Multi-dimensional images}
+\subsection{Image File Formats}
+
+In this part we will discuss on issues related to image file formats including:
+
+\begin{itemize}
+    \item Header and Data
+    \item Data Compression
+\end{itemize}
 
 Image file contains two types of information. 
 One is the image data, the matrix of numerical values. 
@@ -743,55 +769,273 @@ The total file size of an image file is then
 $Total file size = header size + data size$
 
 There are many different types of image formats, such as TIFF, BMP, PICT and so
-on. Each format has differently sized header, and also the location of the
-information. In biology, microscope companies create their own formats to
-include more parameters about the image, such as the type of microscope used,
+on. The organization of the information in the header is specific to each format, as is the size of the header. In biology, microscope companies create their own formats to
+include more information about the image, such as the type of microscope used,
 used objectives, binning, shutter speed, time intervals, user name and so on.
 
-Presence of company-specific formats complicates us because that image could
-only be openable from software provided by that company. For this reason, there
-are an excellent Plug-in which enable importing of specific format to ImageJ
+Having to handle company-specific formats makes our life more difficult because each image can a priori
+only be opened from the software provided by these companies. Fortunately there
+is an excellent ImageJ plugin which enables importing specific image formats to ImageJ
 \footnote{\tab LOCI Bioformat Plugin:\\
 \url{http://www.loci.wisc.edu/ome/formats.html}}
 
 You do not have to know all the details about the architecture of various image
 formats (thanks to the bioformats plugin), but it is important for you to know
 that the difference resides mainly in the header. The data part is in most cases
-same, something like what we have seen already using text image (for more
+the same, something like what we have seen already using text image (for more
 details on header, refer to the appendix \ref{app1} ).
 
-\textit{Multidimensional data}: When you take time-lapse images or z-stack, then
-there will be a series of images with same prefix and serial number like
-image0001.tif, image0002.tif, image0003.tif\dots\ and so on. These files could
-be imported by ImageJ and watch the sequence like a movie. Such an image series
-is called "stack" in ImageJ and can be saved as a single file. File extension is
-typically ".tif", which is same as the single frame file. In Metamorph, popular
-software used in biology, uses .stk as the file extension. These files can be
-loaded directly in ImageJ. We will study more on the actual use of the image
-stacks in section \ref{sec:timeseries}.
-
-\textit{Compression}: Another important point that we must keep in our mind is
-that we should not compress data, if you want to get some numbers out of them.
-Popular compression formats are like JPEG and GIF. Compression of images deals
-with throwing away redundant part or mathematically interpolating some parts of
-the image. This causes artifacts in the image and it could even be
-"manipulation" of data. We must avoid using compression for the images we use
-for measurements. These compression formats are also called "lossy" formats, as
-the process of compression loses data. PNG is a popular compression format that does not
-alter the original pixel values.
-
 \begin{indentexercise}{1}
+
+\textbf{Accessing the image properties}
+
 Open the example image \textbf{wt1.tif}. Do
 \ijmenu{[Image > Show Info\dots]}. Scale (pixels/inch)
 is listed in the information window, which was read out from the header
 of the image. Then do \ijmenu{[Image > Properties]},
 also showing the scale. 
 \end{indentexercise}
+
+\textbf{Compression}: Large image files consume a lot of storage space. There are convenient ways to reduce image file size by data compression. When you take a snap shot using a commercial digital camera or a smart phone, the saved image is always compressed.  
+But keep in your mind:
+
+There are two types of compression formats: \textbf{loss-less} and \textbf{lossy} formats. In loss-less formats, pixel values generated by CCD are preserved even after the compression is made. On the other hand in lossy formats, pixel values become different from the original measured values and cannot be restored. 
+
+PNG is a popular loss-less compression format that does NOT alter the original pixel values. With this format, compression of images are done by shrinking redundant parts: for example, instead of having 100 pixels of 0 values as a block, you could replace that part by saying ``here, there are 100 pixels of zeros''. If you need to compress files, using PNG format is preferred for scientific image data.  
+
+Other more popular compression formats are like JPEG and GIF. JPEG is ofen used in commercial diginal cameras.  In addition to the redundancy shrinking explained above, the compression procedure tries to mathematically interpolate some parts of the image to ignore small details. These are lossy formats as
+the process of compression discards some part of data. This causes artifacts in the image and it could even be "manipulation" of data. For this reason, we better avoid using lossy formats
+for measurements as we cannot recover the original uncompressed image once they are converted. 
+
+I recommend not to compress data except for sharing of data for visualization purpose. The PNG format does not lose the original pixel values but due to the file format conversion, the header information associated with the original will be lost and this often causes problem in retrieving important information about images such as scales and time stamps. 
+
+\subsection{Multidimensional data}
+\label{sec:stackBasics}
+
+In this section, we study the following topics.
+
+\begin{itemize}
+    \item Image stacks
+    \item Editing Stacks
+    \item 4D stacks
+	\item Hyperstacks
+\end{itemize}
+
+Multidimensional data, in which we define here as a set of image data with dimensions more than x and y. Multidimensional data have intrinsic limitation in displaying them on two dimensional screen. Efforts have been made to represent multidimensionality in various ways. One way is the ``image stack''.
+
+\subsubsection{stacks}
+When you take time-lapse sequence or z-sections using a commercial microscope system, the image files are generally saved in the company specific file formats (\textit{e.g.} .lsm or .lif files). Importing these images into ImageJ could simply be done using LOCI bioformats plugin. 
+
+These image data appear as a series of images contained within a window with a scroll bar at the bottom. By scrolling, one could go through the third dimension like a movie. This is the simplest form of multidimensional representation in 2D display. 
+
+%fig of a stack. 
+In some cases, multidimensional data takes a form of multiple
+single image frames with numbering such as 
+
+
+image0001.tif\\
+image0002.tif\\
+image0003.tif\dots
+
+We can import such numbered files recursively and create a stack in ImageJ. 
+
+\begin{indentexercise}{1}
+We import multiple image files as an image stack. Download a zipped file by \ijmenu{[EMBL > Samples > Spindle-Frames.zip]} \footnote{We do also have the stack directly downloadable, but we try to load numberd-tif images here.}. Unzip the file by double clicking. Then
+\ijmenu{[File > Import > Image Sequence\ldots]} will open a dialog window and
+you must specify the first file of the image series. Select sample sequence
+\textbf{eg5\_spindle\_50000.tif\ldots} Then another dialog window pops up (Fig.
+\ref{fig:img129}).
+
+%figure
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{fig/importSeriesDialog.png}
+\caption{ Importing multiple frames as a Stack}
+\label{fig:img129}
+\end{center}
+\end{figure}
+
+ImageJ automatically detects the number of files in the folder, and then another
+window opens to ask for the number of images you want to import, the starting image, the increment between the numbering of the files, and also
+the common part of the names of the files you want to import.
+
+For example, if your sequence starts with \textit{exp01}\ldots, then you could place the text \textit{exp01} in the text field of ``File name contains''. This then avoids loading other data sets with prefix e.g. \textit{exp02} even if they are within the same folder. Regular expression could also be used in the ``or enter pattern'' text field\footnote{If you do not know what Regular Expression is, try the tutorial at \url{http://www.vogella.com/articles/JavaRegularExpressions/article.html}. For those who knows what regex is, use the Java regex.}. 
+
+There are other options such as scaling and conversion of the image bit depth,
+but these operations could be done afterwards. The imported image sequence is within one window, or a stack.
+
+A stack could be saved as a single file. File extension is
+typically ".tif", which is same as the single frame file. The file header will contain the
+information on the number of frames that the image contains. This number
+will be automatically detected when the stack is opened next time\footnote{It is the case in Fiji, but may not be the case for other software.}, so that the stack can be correctly reproduced. 
+\end{indentexercise}
+
+Don't close the stack, exercise continues. 
+
+\begin{indentexercise}{2}
+
+In the ImageJ tool bar among all the tool icons, there is a button with ``Stk''. All the commands related to stack can be found there by clicking that icon. 
+
+%figure
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig/fijiMenu.png}
+\caption{ ImageJ tool bar in default mode.}
+\label{fig:img130a}
+\end{center}
+\end{figure}
+
+\ijmenu{[Start Animation]} plays the sequence as animation. This command can be found at \ijmenu{[Image > Stacks > Tools > Start Animation]}. 
+Try changing the playback speed by \ijmenu{[Animation Options]}. This command pops up a dialog to set the playback speed. In the main menu, this same command is at \ijmenu{[Image > Stack > Tools > Animation options\ldots]} 
+
+To exclusively work on stacks, there is an icon >> at the right most position in the ImageJ menu bar. Click and then from drop down menu that appeared, select "Stack tools". Video player-like interface appears in the tool bar (Fig.~\ref{fig:img130b}). Try different buttons to see what actions they perform. 
+
+%figure
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig/fijiMenu_StackMode.png}
+\caption{ ImageJ tool bar in Stack Tool mode.}
+\label{fig:img130b}
+\end{center}
+\end{figure}
+
+%figure
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{fig/animationOptions.png}
+\caption{ Animation Option Window}
+\label{fig:img131}
+\end{center}
+\end{figure}
+\end{indentexercise}
+
+\subsubsection{Editing Stacks}
+
+In many occasions you might need to edit stacks such as
+\begin{itemize}
+\item Truncate a stack because you only need to analyze a part of the sequence.
+\item Combine two different stacks.
+\item Add a stack at the end of another stack.
+\item Make a combined stack by attaching each frame in a stack by a frame of another stack. Typically, you want to have two channels of image side-by side,
+\item Extract every second frame or slices to reduce the stack size by a half. 
+\item Split two channel time series to individual time points without splitting the channels. 
+\item Insert a small inset within a stack. 
+\end{itemize}
+For such demands, tools for stack editing are available under the menu tree \ijmenu{[Image > Stack > Tools]}. Fig.~\ref{fig:editStack1} and Fig.~\ref{fig:editStack2a} schematically show what each of these commands does. 
+%figure
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/stackEditing1.png}
+\caption{Editing Stacks 1. These commands are under \ijmenu{[Image > Stack > Tools]}. Courtesy of Sebasti\'{e}n Tosi, IRB Barcelona.}
+\label{fig:editStack1}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[width=\textwidth]{fig/stackEditing2.png}
+\caption{Editing Stacks 2. These commands are under \ijmenu{[Image > Stack > Tools]}. Courtesy of Sebasti\'{e}n Tosi, IRB Barcelona.}
+\label{fig:editStack2a}
+\end{center}
+\end{figure}
+
+
+\begin{indentexercise}{1}
+\textbf{Creating a Montage}\\
+Create a new image \ijmenu{[File > New > Image\ldots]} with the following properties. 
+\begin{itemize}
+\item Name: could be any thing
+\item Type: 8-bit
+\item Fill with: Black
+\item Width: 200
+\item Height: 200
+\item Slices: 10
+\end{itemize}
+Then draw time stamps in each frame by \ijmenu{Image > Stacks > Time Stamper} with the default properties but for the following:
+\begin{itemize}
+\item X location: 50
+\item Y location: 90
+\item Font Size: 36
+\end{itemize}
+
+Now, you should have printed time for each frame, 0 to 9 sec. To make a montage of this image stack, do \ijmenu{[Image > Stacks > make Montage\ldots]}. Set the following parameters and then click OK. 
+\begin{itemize}
+\item Columns: 5
+\item Rows: 2
+\item Border Width: 1
+\item Label Slices: checked.
+\end{itemize}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/TimeStampMontage.png}
+\caption{Montage of the time-stamped stack.}
+\label{fig:editStack2}
+\end{center}
+\end{figure}
+
+If you have time, try to change the column and row numbers to create montage with different configuration. 
+
+\textbf{Concatenation}
+
+Then duplicate the time stamp stack, concatenate the duplicate to the original (\ijmenu{[Image > Stacks > Tools > Concatenate\ldots]}). Create a montage of this double sized stack. 
+
+\end{indentexercise}
+
+
+\subsubsection{4D stacks}
+
+A time-lapse sequences (we could call it ``2DT stack'' or xyt stack) or a Z-stack (we could call it ``3D stack'' or xyz stack) are relatively simple objects because they are both made up of a series of two dimensional images. More highly dimensioned data are common these days. In many occasions we take a time series of z-stacks maybe also with multiple channels. The order of two dimensional images within such multidimensional stacks then becomes an important issue. If we take an example of 3D time series, a possible order of 2D images could start first with z-slices and then time series. In this case, the frame sequence will be something like this:
+
+imgZ0-T1.tif\\
+imgZ1-T1.tif\\
+imgZ2-T1.tif\\
+imgZ0-T2.tif\\
+imgZ1-T2.tif\\
+imgZ2-T2.tif\\
+imgZ0-T3.tif\\
+\ldots
+
+The number after ``Z'' is the slice number and that after ``T'' is the file name. We often call this order ``XYZT''. Alternatively, 2D images could be ordered with time points first and then z-slices. In this case images will be stacked as:
+
+imgZ0-T1.tif\\
+imgZ0-T2.tif\\
+\ldots\\
+imgZ1-T1.tif\\
+imgZ1-T2.tif\\
+\ldots\\
+imgZ2-T1.tif\\
+imgZ2-T2.tif\\
+\ldots
+
+We call this order ``XYTZ''. 
+
+The order you will often find is the first one (XYZT) but in some
+cases you might also find the second one (XYTZ). 
+
+\subsubsection{Stacks with more than 4D}
+
+If we have multiple channels, we could even have an order like ``XYCZT''\footnote{XYCZT is a typical order but many microscope companies and software do not follow this typical order.} and so on. Since when viewed as a regular stack we can scroll only along a single dimension, the order of stack dimensions is fundamental as it affects the order in which the images will appear. 
+
+To avoid such complication with dimension ordering, there is an advanced format of stack called \textit{Hyperstack}. It can have up to three scroll bars at the bottom for channels (C), slices (Z) and time points (T) so one could easily scroll through the dimension of your choice (Fig.~\ref{fig:heyperstack_mitosis}). 
+
+%figure
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=9cm]{fig/Hyperstack_Mitosis.png}
+\caption{ A Hyperstack data, showing spindle dynamics. This 5D data could be downloaded by \ijmenu{[File > Open Samples > Mitosis]}}
+\label{fig:heyperstack_mitosis}
+\end{center}
+\end{figure}
+
+We will study more on the actual use of the image stacks in section ``Analysis of Time Series''%\ref{sec:timeseries}.
+
 \begin{indentexercise}{2}
   In this exercise, you will learn how to interact with image stacks (n
   Dimensional images).
   Open sample image stack \textbf{yeastDivision3DT.tif}.
-  This is a 3D time series stack. You could scroll through the frames by moving
+  This is a 3D time series stack. You can browse through the frames by moving
   the scroll bar at the bottom of the frame.
   Since this is a 3D time series, you will see that each time point is a
   sub-stack of images at different optical sections. 
@@ -806,8 +1050,8 @@ also showing the scale.
   For the sample image we use in this exercise, z should be 8 and frames should
   be 46.}
   
-   In ``Hyperstack'' mode, two scroll bars become present at the bottom of the
-   window. One is for scrolling through z slices and the other for time points.
+   In ``Hyperstack'' mode, two scroll bars appear at the bottom of the
+   window. One is for scrolling through z slices and the other to select a time point (frame).
    Each scroll bar could be moved independently of the other dimension, so you
    could for example go through the time series at a same constant z-position,
    or go through z-slices at a certain time point.
@@ -815,15 +1059,158 @@ also showing the scale.
    
    \ijmenu{[Image > Hyperstacks > Hyperstack to Stack\dots]}.
 \end{indentexercise}
-\subsection{Resizing images. (Shrinking and Enlarging) }
 
-When we say "resizing" images, this does not mean zooming in or out the
-image\footnote{\ Zooming is done by the magnification tool (icon of
-magnification glass) and this simply enlarges or shrinks the pixels, not
-modifying the original data. \par }. Resizing changes the original data. If we
-have an image of size 10 pixels by 10 pixels and resize it to 200\%, the image
+\subsection{Command Finder}
+
+Commands for these stack related tools (especially editing tools) reside deep inside the menu tree and it is not really convenient to access those commands by manually following the menu tree using mouse. For such a case, and if you could remember the name of the command, a quick way to run the command is to use \textbf{command finder}.
+
+There is a short cut key to start up the command finder: the key ``L''. On start up, the command finder interface looks like figure \ref{fig:commandfinderstart}. Type in the command that you want to use in the text field labeled ``search'', and then the menu items are filtered as you type in (fig. \ref{fig:commandfinderConcat}). Select the one you want and then click the button ``run''. This is the same as selecting that command from the menu tree. This tool is also useful when you know the name of a command but forgot where it is in the menu tree, since it also shows where the command is by showing its menu path. 
+
+\begin{figure}[htbp]
+\centering
+\subfloat[The interface on start up.]{\label{fig:commandfinderstart}\includegraphics[width = 0.45\textwidth]{fig/commandFinder.png}}
+\quad
+\subfloat[Typing in some command name will filter the menu items and shows the hits.]{\label{fig:commandfinderConcat}\includegraphics[width = 0.45\textwidth]{fig/commandFinderConcat.png}} 
+\caption{Command Finder.}
+\label{fig:commandfinder}
+\end{figure}
+
+
+\subsection{Visualization of Multidimensional Images}
+
+We have an intrinsic limitation in displaying multidimensional images, but we still want to check data by our eyes. For this reason, ways to visualize multi-dimensional data have been developed. We go over some of those methods which are frequently used in this section. 
+
+\subsubsection{Color Coding}
+
+With multiple channels, we could have several different signal distributions per scene from different types of illuminations or from different types of proteins. One typical way to view such multiple channel image is to color code each channel \textit{e.g.} actin in red and Tubulin in green. We have already seen such images in the RGB section (\ref{subsec:rgb}). 
+
+The color coding is not limited to the dimensions in Channels, but also for slices (Z) and time points (T). By assigning a color that depends on the slice number or time points, the depth information within a Z-stack or a time point information within a time lapse movie could be represented as a specific color rather than by the position of that slice or frame within image stack.
+
+
+\begin{indentexercise}{1}
+Open \ijmenu{[EMBL > Samples > TransportOfEndosomalVirus.tif ]}. Apply the color coding to this time-lapse movie \ijmenu{[Image > HyperStacks > Temporal-Color Code]}. In the dialog choose a color coding table from the drop-down list. Principle of the coding is same as the look-up table, and only the difference is that the color assignment is adjusted so that the color range of that table fits to the range of frames (Fig. \ref{fig:temporalColorcoding}). 
+
+
+\begin{figure}[h!]
+\centering
+\subfloat[Original stack, first frame. This stack consists of 72 frames.]{\label{fig:TimeColorCodeOrg}\includegraphics[width = 0.45\textwidth]{fig/TimeColorCodeOrg.png}}
+\quad
+\subfloat[Color coded stack.]{\label{fig:TimeColorCode}\includegraphics[width = 0.45\textwidth]{fig/TimeColorCode.png}} \\
+\subfloat[Scale of the time color-coding. From frame 1 to 72, corresponding color is shown as a scale. ]{\label{fig:TimeColorCodeScale}\includegraphics[width = 0.8\textwidth]{fig/TimeColorCodeScale.png}}
+\caption{Temporal-Color Coding.}
+\label{fig:temporalColorcoding}
+\end{figure}
+
+\end{indentexercise}
+
+ 
+
+\subsubsection{Projection}
+
+Projection is a way of decreasing an \textit{n}-dimensional image to an \textit{n-1}-dimensional image. For example, if we have a three dimensional XYZ stack, we could do a projection along Z-axis to squash the depth information and represent the data in 2D XY image. We lose the depth information but it helps us to see how the data looks like. The principle is like this: we could think of XYZ data as a cubic entity. This cube is gridded and composed of small cubic elements. If we have a Z-stack  with 512 pixels in both XY and with 10 slices in Z, we then have a 
+cube composed of 512 x 512 x 10 =  2,621,440 small cubes. These small cubes are called ``voxels'', instead of ``pixels''. Now, if we take a single XY position, there are 10 voxels at this XY position (figure \ref{fig:projectionscheme}).
+ 
+Imagine the column of 10 voxels: Each voxel has a given intensity, and we can compute statistics over these 10 values such as the mean, the minimum, the maximum, the standard deviation and so on. We can then represent this column by a single statistical value.  
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.8]{fig/projection.pdf}
+\caption{A three dimensional stack can be regarded as a gridded cube. The projection calculates various sorts of statistics for each two dimensional positions , which can be viewed as a stack of voxels, and store that value in the two dimensional image at the same position.}
+\label{fig:projectionscheme}
+\end{center}
+\end{figure}
+
+In this way, we can pick up a column of voxels from every XY positions, compute statistics and create a two dimensional image with each of its XY position filled with voxel column statistics. This two dimensional image is the result of the \textbf{projection} along Z-axis, or what we call ``Z-projection''. Projection could also be in other axes, not only along Z-axis. If we do a projection along X-axis, we would then have a projection of the data to YZ plane. Projecting aloing Y-axis will result in a projection to XZ plane (this relates to the orthogonal viewing, which we try in the next section).
+
+\begin{indentexercise}{2}
+Open image \textbf{mitosis\_anaphase\_3D.tif}.
+Then do all types of projections you could choose in \ijmenu{[Image > Stack > Z
+projection\ldots]}.\\
+There are 
+\begin{itemize}
+
+    \item Average Intesnity
+\item Max Intensity
+\item Min Intensity
+\item Sum of Slices
+\item Standard Deviation
+\item Median
+\end{itemize}
+
+\textbf{Question 1}: Which is the best method for knowing the shape of the chromosome?\\
+\textbf{Question 2}: Discuss the difference of projection types and why there is such a difference.  
+\end{indentexercise}
+
+``Max Intensity'' projection is the most frequently used projection method in fluorescence microscopy images, as this method picks up bright signals. ``sum of slices'' method returns a 32bit image since results of addition could possibly exceed 8 bit or 16 bit range. 
+
+Note 1: If your data is a 3D time series hyper stack, there will be a small check box in the projection dialog "All Time Points". If you check the box, projection will be done for each time point and the result will be a 2D time series of projections.
+
+Note 2: The projection of a 2D time series can also be performed. Thought the command name is ``Z-Projection'', the principle of projection is identical regardless of the projection axis.  
+
+\subsubsection{Orthogonal Views}
+
+The projection is a convenient method for visualizing 3D stack on 2D plane, but if you want to preserve the original dimensions and still want to visualize data, one way is to use a classic 2D animation. This could be achieved easily with the scroll bar at the bottom of the each stack. But this has limitation: we could only move in the third dimension, Z or T. To scroll through X or Y, we use ``Orthognlal View''. 
+
+You could view a stack in this mode by \ijmenu{[Image > Stack > Orthogonal View]}. Running this command will open two new windows at the right side and below the stack. These two new windows are showing YZ plane and XZ plane. Displayed position is indicated by yellow crosses. These yellow lines are movable by mouse dragging. 
+
+\begin{figure}[h!]
+ \centering
+ \subfloat[XY]{\label{fig:OrthoViewXY}\includegraphics[height = 0.2\textheight]{fig/OrthoViewXY.png}} 
+% \quad
+ \subfloat[YZ]{\label{fig:OrthoViewYZ}\includegraphics[height = 0.2\textheight]{fig/OrthoViewYZ.png}}
+\\
+ \subfloat[XZ]{\label{fig:OrthoViewXZ}\includegraphics[height = 0.09\textheight]{fig/OrthoViewXZ.png}}
+ \caption{Orthogonal views of a 3D stack.}
+ \label{fig:orthogonalView}
+\end{figure}
+
+\begin{indentexercise}{3}
+Open image \textbf{mitosis\_anaphase\_3D.tif}.
+Run a command \ijmenu{[Image > Stack > Orthogonal View]}. Try scrolling through each axes: x, y and z. 
+\end{indentexercise}
+
+\subsubsection{3D viewer}
+
+Instead of struggling to visualize 3D in 2D planes, we could also use the power of 3D graphics to visualize three dimensional image data. 3D viewer is a plugin written by Benne Schimidt. It uses Java OpenGL (JOGL) to render three dimensional data as click-and-rotatable object on your desktop. We could try to use the 3D viewer with the data we have been previously dealing with. 
+
+\begin{indentexercise}{4}
+Open image \textbf{mitosis\_anaphase\_3D.tif}.
+Run a command \ijmenu{[Plugins > 3D Viewer]}. A parameter input dialog opens on top of 3Dviewer window. Change the following parameters:
+\begin{itemize}
+\item Image: Choose mitosis\_anaphase\_3D.tif.
+\item Display as: Choose Surface.
+\item Color: Could be any color. In the example shown in fig.\ref{fig:3DviewerSurface}, white was chosen. 
+\item Threshold: Default value 50 should work OK, but you could also try changing it to greater or smaller values. This threshold value determines the surface. Pixel intensity greater than this value will be considered as object, else background. 
+\item Resampling factor: default value (2) should be sufficient. If you change this value to 1, then it takes longer time for rendering. In case of our example image which is small, difference in the rendering time should be not really recognizable. 
+\end{itemize}
+
+After setting these values, clicking ``OK'' will render the image in the 3Dviewer window. Try to click and rotate the object. 
+
+\begin{figure}[h!]
+ \centering
+ \subfloat[Parameter Input Dialog]{\label{fig:3DviewerParameters}\includegraphics[width = 0.45\textwidth]{fig/3DviewerOptions.png}} 
+ \quad
+ \subfloat[Surface rendered 3D stack]{\label{fig:3DviewerSurface}\includegraphics[width = 0.45\textwidth]{fig/3DviewerExample.png}}
+ \caption{Surface rendering by 3DViewer.}
+ \label{fig:3DviewerSurface}
+\end{figure}
+\end{indentexercise}
+
+More advanced usages are available such as visualizing two channels or showing 3D time series as a time series of 3D graphics or saving movies. For such usages, consult the tutorial in the 3DViewer website (\url{http://3dviewer.neurofly.de/}).  
+
+\subsection{Resampling images (Shrinking and Enlarging)}
+
+When you want to check the details of images, zooming is the best way to focus on a specific region to observe details.  Zooming is done by the magnification tool (icon of
+magnification glass) and this simply enlarges or shrinks the pixels.
+
+Instead if you really need to increase the number of pixels per distance, we call such processing as ``Resampling'' and we will examine this a bit in this section. 
+
+By the way, if we just want to have larger image by adding some margin, we call this ``resizing'', and the command for this resides in the menu tree: \ijmenu{[Image > Adjust > Canvas Size]}.
+
+The resampling changes the original data. If we
+have an image of size 10 pixels by 10 pixels and resample it to 200\%, the image
 becomes 20 x 20.
-If we resize it by 50\%, then the image becomes 5 x 5. Resizing is a simple task
+If we resample it by 50\%, then the image becomes 5 x 5. The resampling is a simple task
 that could be done by \ijmenu{[Image > Adjust > Size\ldots]}. This is a simple
 operation but one must take care about how pixels will be produced while
 enlarging and reduced while shrinking. If the enlarging is simply two times
@@ -846,23 +1233,23 @@ Magnify again. "Select all" by
 \ijmenu{[Edit > Selection > Select All]}.
 Then \ijmenu{[Image > Adjust > Size\ldots]}.
 In the dialog window, input the width 4 and height 4 (corresponds to
-200\% enlargement). Turn on the check box "aspect
-ratio" on and
-"Interpolation" off. Then click
+200\% enlargement). Tick "aspect
+ratio" and
+un-tick "Interpolation". Then click
 OK. Check the pixel values in original image, and the enlarged image.
 \end{indentexercise}
 
 \begin{indentexercise}{2}
-Do the similar resizing, but this time enlarge
+Do the similar resampling, but this time enlarge
 the image by 150\%. Check the pixel values.
 %double figure
 \begin{figure}[htbp]
 \centering
 \subfloat[]{\label{fig:img28}
-\includegraphics[width=3.951cm,height=3.916cm]{img/CMCIBasicCourse201102-img28.jpg}
+\includegraphics[width=3.951cm,height=3.916cm]{fig/CMCIBasicCourse201102-img28.jpg}
 }
 \subfloat[]{\label{fig:img29}
-\includegraphics[width=4.022cm,height=5.045cm]{img/CMCIBasicCourse201102-img29.jpg}
+\includegraphics[width=4.022cm,height=5.045cm]{fig/CMCIBasicCourse201102-img29.jpg}
 }
 \caption{ Artifacts produced by resizing. (a) Four pixel image and (b) nine pixel image after
 resizing. }
@@ -871,7 +1258,7 @@ resizing. }
 
 \end{indentexercise}
 
-The resizing in the exercise was without interpolation -- the check box
+The resampling in the exercise was without interpolation -- the check box
 was OFF. Interpolation is similar to the one dimensional interpolation
 we do with graphs. In case of images, the gradient is also two
 dimensional so the situation is a bit more complex. There are various
@@ -884,7 +1271,7 @@ to\\
 http://www.cambridgeincolour.com/tutorials/image-interpolation.htm.}.
 One must keep in mind that the result of enlarging or shrinking of
 image depends on the interpolation method -- and scientific results
-could be altered depending on the method you use.
+could be altered depending on the method you use. In a more general context, this problem is treated as ``sampling theory''. With this keyword, search more explanation in information theory textbooks and in the Internet. 
 
 \clearpage
 \subsection{ASSIGNMENTS }%%%%%%%%%%%%%%%%%%%%%%%
@@ -892,7 +1279,7 @@ could be altered depending on the method you use.
 \textbf{\sffamily
 Assignment 1-1-1: Digital image = matrix of numbers}
 
-Edit a text image using text editor. Be sure to insert space between
+Edit a text image using any text editor. Be sure to insert space between
 numbers as separator. Save the text file and open it as an image in
 ImageJ by importing text image function. \ \ 
 
@@ -909,18 +1296,18 @@ Assignment 1-1-3: bit depth conversion}
 Use m51.tif (16-bit!) sample image to draw a plot profile, as we did in
 the course. In the profile plot window, a
 "list" button is at the left-bottom corner.
-Click the button. You will then see a new window containing a column on
+Click the button. You will then see a new window containing a column of
 numbers. These numbers can be copy \& pasted to spread sheet software
-such as Openoffice Calc or MS Excel. Overlay three curves in a graph,
-and discuss the difference in two different ways of bit-conversions. 
+such as LibreOffice Calc or MS Excel. Overlay the three curves in a graph,
+and observe the differences. 
 
 \textbf{\sffamily
-Assignments 1-1-4: Simple math with Image}
+Assignments 1-1-4: Simple math on Images}
 \begin{enumerate}
 \item Try subtracting certain values from the image you created in
 the Assignment 1-1-1 and check that the values cannot be less than 0. 
 \item Prepare an 8-bit image with pixel value 200. Divide the
-image by 3, and check the answer. 
+image by 3, and check the result. 
 
 \item Prepare a 16-bit image. In the \ijmenu{[File > New > 
 Image\ldots]} dialog, select 16-bit from the

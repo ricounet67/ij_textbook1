@@ -8,21 +8,19 @@ Segmentation refers to the process in which an image is subdivided into
 constituent regions or objects. These objects can be further
 processed or analyzed for the extraction of quantitative information.
 Biological image data is usually messy and noisy, and as a result
-difficult to segment properly. Multiple image processing steps are
-often required for segmentation of such. We often combine segmentation
-with various morphological processing and filtering techniques such as
-described in the previous section to achieve accurate and robust
-segmentation of an image.
-Image segmentation algorithms are generally based on one of two basic
+difficult to be segmented properly. Multiple image pre-processing steps are
+often required to allow a good segmentation. We often combine segmentation
+with various morphological processing and filtering techniques (such as the ones described in the previous section) to achieve an accurate and robust
+segmentation.
+Image segmentation algorithms are generally based on one of the two basic
 properties of intensity values: discontinuity and similarity. In the
 first category, the approach is to partition an image based on abrupt
-changes in intensity. Edge-detection algorithms we will study below is
-in this category. In the second approach, an image is partitioned into
+changes in intensity, edge-detection algorithms falls in this category. In the second approach, an image is partitioned into
 regions that are similar according to set of predefined criteria.
-Thresholding and watershed segmentation are in this category.
+Thresholding and watershed segmentation fall in this category.
 
 \subsection{Thresholding}
-
+\label{sec:Thresholding}
 Many biological images comprise of light objects over a constant dark
 background (especially those obtained using fluorescence microscopy),
 in such a way that object and background pixels have gray levels
@@ -38,7 +36,7 @@ g(x,y)=
 \end{cases}
 \end{equation}
 
-where $g(x,y)$ is the thresholded image of
+Where $g(x,y)$ is the thresholded image of
 $f(x,y)$.
 
 In a sense, thresholding is an extreme case of contrast enhancement we
@@ -46,7 +44,7 @@ studied already (\ref{subsec:enhancecontrast}). By setting a threshold value $T$
 converting the image, pixels with values above $T$ becomes white and
 otherwise black (color could be in inverse). 
 
-Image thresholding operation turns the image into black and white image
+Image thresholding operation turns the image into a black and white image
 which is called \textit{binary image}\footnote{Some of \ijmenu{[Process{\ldots}]}operations work only with binary images, so thresholding is a prerequisite for those filters}.
 
 \begin{indentexercise}{1}
@@ -56,7 +54,7 @@ the thresholding, we first try thresholding images using
 we used in the previous section. Open the image \textbf{2D\_Gel.jpg}.
 Then \ijmenu{[Image > Adjust > Brightness/Contrast]}. 
 In "B\&C" contrast control window, set the "minimum" and "maximum" to a same value. You then should
-see the LUT curve is vertical, like shown in the figure below. Then
+see that the LUT curve is vertical, like shown in Fig.~\ref{fig:img106} below. Then
 change the brightness: this will change the x-position of the vertical
 LUT, and at the same time, you will see the ratio of black and white
 area changes. This corresponds to the changing of thresholding value.
@@ -65,14 +63,14 @@ area changes. This corresponds to the changing of thresholding value.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img106.png}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img106.png}
 \caption{ Thresholding by using Brightness/Contrast Control Dialog.}
 \label{fig:img106}
 \end{center}
 \end{figure}
 \end{indentexercise}
  
-Threshold could be also done by setting two threshold values, lower
+Thresholding could be also done by setting two threshold values, lower
 limit and upper limit: which means that pixels with a certain range of
 values could be selected. This operation is sometimes called
 "density slice". We then have a new rule as follows, with lower threshold value $T_1$ and upper threshold value $T_2$.
@@ -99,7 +97,7 @@ sliding bar below and study the effects on highlighted area in image.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=7cm]{img/CMCIBasicCourse201102-img107.png}
+\includegraphics[width=7cm]{fig/CMCIBasicCourse201102-img107.png}
 \caption{ Thresholding Dialog.}
 \label{fig:img107}
 \end{center}
@@ -107,7 +105,7 @@ sliding bar below and study the effects on highlighted area in image.
 
 \ijmenu{Set} button in the threshold
 window enables to you input the lower and upper threshold numerically.
-The original image file is not altered until you push the button
+The original image file is not altered until you click the button
 \ijmenu{Apply} at the bottom of the
 threshold window. Click \ijmenu{Apply}, and
 check the result of conversion by saving it as a text file, or simply
@@ -121,7 +119,7 @@ automatically setting the threshold level exist.
 window is one of these automatic thresholding algorithms. Various
 algorithms for automatic determination of threshold value are available
 (such as Otsu, Maximum Entropy and so on) and you could choose one of
-them by drop-down menu on the left side. Following is a list of
+them by the drop-down menu on the left side. Following is a list of
 available Algorithms:
 
 
@@ -144,10 +142,19 @@ available Algorithms:
 \item Yen
 \end{itemize}
 
-For choosing an algorithm, one way is to look for original papers
+For choosing an algorithm, a proper way might be to look for original papers
 describing the algorithm and think which one would work best for your
-purpose, but in practice, you could try one by one and just choose one
-that fits your demand. 
+purpose (!), but in practice, you could try one by one and just choose one
+that fits your demand. Instead of manually trying out all available algorithms, you could test them in one action by \ijmenu{[Image > Adjust > Auto Threshold]} and then choose ``Try All'' in the dialog window (fig. \ref{fig:thresholdTryAll})
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig/ThresholdTryAll.png}
+\caption{For testing all algorithms, ``try all'' choice in AutoThreshold dialog is convenient. The image above is an output of doing this with the image blob.tif. Algorithm names are printed in small fonts below each image.} 
+\label{fig:thresholdTryAll}
+\end{center}
+\end{figure}
 
 In batch processing, command for automatic threshold would be like this:
 
@@ -156,10 +163,17 @@ In batch processing, command for automatic threshold would be like this:
 The first argument is the name of the algorithm and could be any of the
 ones listed above.
  
-\subsection{Edge Detection}
+\subsection{Feature Extraction - Edge Detection}
 
-Edge Detection technique explained in \ref{subsub:findedgekernel} Find Edge is useful for
-segmenting edge of object. We take an example of microtubule filament image. 
+Patterns within an image have features such as lines and corners. To detect them we employ a procedure called ``Feature Extraction''. In the general sense, this means to extract certain objects that you are focusing on. In a strict definition in image processing, this means to do some defined calculations with neighboring pixels to get a feature image. This output then can be used simply for segmentation, but also for machine learning based automatic classificaiton (we will try this technique in a later section). 
+
+The edge detection was already mentioned in the find edge kernel section (\ref{subsub:findedgekernel}). Edge detection is one of those feature extractors and is useful for segmenting object edges. 
+In the ImageJ menu we could use commands 
+\begin{itemize}
+\item \ijmenu{[Process > Find Edges]} (uses Sobel kernel) or 
+\item \ijmenu{[Plugins > Feature Extraction > FeatureJ > FeatureJ Edge] (uses gradient filter)} 
+\end{itemize}
+that do the job but here we try to do it step by step, starting from manually preparing Sobel kernels. We process an image of microtubule filament. 
 
 \begin{indentexercise}{1}
 Open image microtubule.tif. We expect that the values will exceed 255 (8-bit) so convert the image to
@@ -167,7 +181,7 @@ Open image microtubule.tif. We expect that the values will exceed 255 (8-bit) so
 To the original image apply convolution in x-axis. 
 Do \ijmenu{[Process > Filter > Convolve]} and input the following kernel:
 
-%\includegraphics[width=1.87cm,height=1.87cm]{img/CMCIBasicCourse201102-img108.png}
+%\includegraphics[width=1.87cm,height=1.87cm]{fig/CMCIBasicCourse201102-img108.png}
 \[
  \begin{matrix}
   1 & 0 & -1 \\
@@ -178,7 +192,7 @@ Do \ijmenu{[Process > Filter > Convolve]} and input the following kernel:
 Be sure to make space between elements. Then to the duplicated image,
 apply convolution with the following kernel:
 
-%\includegraphics[width=2.364cm,height=1.87cm]{img/CMCIBasicCourse201102-img109.png}
+%\includegraphics[width=2.364cm,height=1.87cm]{fig/CMCIBasicCourse201102-img109.png}
 \[
  \begin{matrix}
   1 & 2 & 1 \\
@@ -203,7 +217,7 @@ Then to squared images, do \ijmenu{[Process > Image Calculator]} for the additio
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=4cm]{img/CMCIBasicCourse201102-img110.jpg}
+\includegraphics[width=4cm]{fig/CMCIBasicCourse201102-img110.jpg}
 \caption{ Image Calculation}
 \label{fig:ImageCalculatorDialog}
 \end{center}
@@ -214,7 +228,7 @@ There will be a new window. To this new image titled \textbf{result of microtubu
 \ijmenu{[Process > Math > Square Root]} for the final calculation. 
 You probably would see only black frame, this is
 because 32-bit image is not properly scaled and you need to adjust LUT.
-To do so, do \ijmenu{[Image Adjust Brightness and Contrast] }
+To do so, do \ijmenu{[Image > Adjust > Brightness/Contrast] }
 and in the Brightness \& Contrast window, click \ijmenu{Auto} to auto-scale the LUT.
 
 
@@ -235,7 +249,7 @@ start up. To show B selection field, click
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=10cm]{img/CMCIBasicCourse201102-img111.png}
+\includegraphics[width=10cm]{fig/CMCIBasicCourse201102-img111.png}
 \caption{ Image Expression Parser (Fiji)}
 \label{fig:ImageExpressionParser}
 \end{center}
@@ -243,7 +257,7 @@ start up. To show B selection field, click
 
 \end{quote}
 
-For comparing the original and the edge detected images, go back to the
+To compare the original and the edge detected images, go back to the
 image \textbf{microtubule} and do
 \ijmenu{[File > Revert]}. Then with "Result of Microtubule" do \ijmenu{[Image > Type > 8-bit]} 
 to scale down the bit-depth. Merge the images by
@@ -255,10 +269,10 @@ image such as shown below.
 \begin{figure}[H]
 \centering
 \subfloat[]{\label{fig:img112}
-\includegraphics[height=3cm]{img/CMCIBasicCourse201102-img112.jpg}
+\includegraphics[height=3cm]{fig/CMCIBasicCourse201102-img112.jpg}
 }
 \subfloat[]{\label{fig:img113}
-\includegraphics[width=8cm]{img/CMCIBasicCourse201102-img113.png}
+\includegraphics[width=8cm]{fig/CMCIBasicCourse201102-img113.png}
 }
 \caption{ RGB merge of detected edge over the original
 image. (a) Dialog for assigning channels. (b) Example of merged color image, with original image in blue and edge-detected image in red}
@@ -268,8 +282,8 @@ image. (a) Dialog for assigning channels. (b) Example of merged color image, wit
 \end{indentexercise}
 
 \subsection{Morphological Watershed }
-
-In the previous sections, we discussed segmentation based on thresholding and edge detection. Morphological watersheds provide another way to segmentation of objects. One advantage of watersheds is that it produces continuous segmentation boundaries and often tends to produce stable segmentation results. In ImageJ, watershed algorithm could be found at \ijmenu{[Process > Binary > Watershed]}.
+\label{sec:Watershed}
+In the previous sections, we discussed segmentation based on thresholding and edge detection. Morphological watersheds provide another way to segment objects. One advantage of the watershed algorithm is that it outputs continuous segmentation boundaries and often tends to produce stable segmentation results. In ImageJ, watershed algorithm could be found at \ijmenu{[Process > Binary > Watershed]}.
 
 To understand the watershed transform we view a grayscale image as a
 topological surface, where the values of f(x,y) correspond to heights:
@@ -278,10 +292,10 @@ topological surface, where the values of f(x,y) correspond to heights:
 \begin{figure}[htbp]
 \centering
 \subfloat[]{\label{fig:img114}
-\includegraphics[width=8cm]{img/CMCIBasicCourse201102-img114.png}
+\includegraphics[width=8cm]{fig/CMCIBasicCourse201102-img114.png}
 }
 \subfloat[]{\label{fig:img115}
-\includegraphics[width=2.3cm]{img/CMCIBasicCourse201102-img115.png}
+\includegraphics[width=2.3cm]{fig/CMCIBasicCourse201102-img115.png}
 }
 \caption{ Watershed Principle}
 \label{fig:WatershedPrinciple}
@@ -300,13 +314,13 @@ by letting the water rise through the holes at a uniform rate. Pixels
 below the water level at a given time are marked as flooded. When we
 raise the water level incrementally, the flooded regions will grow in
 size. Eventually, the water will rise to a level where two flooded
-regions from separate catchment basins will merge. When this occurs,
+regions from separate catchment basins merge. When this occurs,
 the algorithm constructs a one-pixel thick dam that separates the two
 regions. The flooding continues until the entire image is segmented
 into separate catchment basins divided by watershed ridge lines.
 
 \begin{indentexercise}{1}
-Open binary image \textbf{Circles.tif}. You
+Open binary image \textbf{Circles.tif} (Fig.~\ref{fig:img116}). You
 see two circles fused. Such situation often occurs with cells or
 organelle, and you might want to simply separate them as different
 objects. 
@@ -314,20 +328,20 @@ objects.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=2.381cm,height=2.408cm]{img/CMCIBasicCourse201102-img116.png}
+\includegraphics[width=2.381cm,height=2.408cm]{fig/CMCIBasicCourse201102-img116.png}
 \caption{ Circles.tif}
 \label{fig:img116}
 \end{center}
 \end{figure}
 
-Do \ijmenu{[Process > Binary > Watershed]}. You now see that two circles are separated at the
+Do \ijmenu{[Process > Binary > Watershed]}. You will see that the two circles are separated at the
 constricted part of the fused circles. 
 \end{indentexercise}
 
 If you want to know a bit more details, read the following quote how ImageJ does this.
 \begin{quote}
 Watershed segmentation is a way of automatically separating or cutting
-apart particles that touch. It first calculates the Euclidian distance
+apart particles that touch. It first calculates the Euclidean distance
 map (EDM) and finds the ultimate eroded points (UEPs). It then dilates
 each of the UEPs (the peaks or local maxima of the EDM) as far as
 possible - either until the edge of the particle is reached, or the
@@ -338,18 +352,18 @@ overlap too much. (quote from ImageJ web site)
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=13.418cm,height=2.701cm]{img/CMCIBasicCourse201102-img117.png}
+\includegraphics[width=13.418cm,height=2.701cm]{fig/CMCIBasicCourse201102-img117.png}
 \caption{ Watershed Segmentation}
 \label{fig:img117}
 \end{center}
 \end{figure}
 
-ImageJ first computes the distance transform on binary image. The distance transform of
-a binary image is the distance from every pixel to the nearest nonzero-valued pixel, as example in Fig. \ref{fig:img118} shows.
+ImageJ first computes the distance transform on the binary image. The distance transform of
+a binary image is the distance from every pixel to the nearest nonzero-valued, or background, pixel, as example in Fig. \ref{fig:img118} shows.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=10.85cm,height=5.242cm]{img/CMCIBasicCourse201102-img118.png}
+\includegraphics[width=10.85cm,height=5.242cm]{fig/CMCIBasicCourse201102-img118.png}
 \caption{ A small binary image (left) and its distance transform (right)}
 \label{fig:img118}
 \end{center}
@@ -358,21 +372,22 @@ a binary image is the distance from every pixel to the nearest nonzero-valued pi
 
 \subsection{Particle Analysis}
 
-After the segmentation, objects could be analyzed for extracting various
-parameters. Powerful function in ImageJ for this purpose is particle
+After the segmentation, the objects could be analyzed for extracting various
+parameters about objects. A powerful function in ImageJ for this purpose is the particle
 analysis function. It counts the number of objects (particles) in the
-image, extract morphological parameters, measures intensity\ldots and
+image, extracts morphological parameters, measures intensity\ldots and
 so on. For details on extractable parameters, refer to Appendix
-\ref{app2} of this textbook. Here, we take an example to learn the basic use of
+\ref{app2}. Here, we take an example to learn the basic use of
 this function.  
 
 \begin{indentexercise}{1}
 Single Particle Detection
+
 Load \textbf{Circles.tif} and segment two circles by watershed operation
-as we did in the previous section. Then select Wand Tool 
-\includegraphics[width=0.5cm]{img/CMCIBasicCourse201102-img119.png}
+as we did in the previous section. Then select the Wand Tool 
+\includegraphics[width=0.5cm]{fig/CMCIBasicCourse201102-img119.png}
  from the tool bar. Click one of the circles. Check that a ROI is
-automatically created at the edge of the circle.
+automatically highlighted at the edge of the circle.
 \end{indentexercise}
 
 Automatic detection is done by pixel similarity principle. In the above
@@ -394,10 +409,10 @@ following.
 
 Set Threshold again, and then click ``Apply'' in the Threshold dialog window. 
 The image then should be black and white. This binarized (segmented) image 
-will be used as a reference for setting boundary of each rice particle. 
+will be used as a reference for setting boundary of each rice grain. 
 
-Open file \textbf{rice.tif} again. Since there is already a window with same title, this second one 
-should have a title ``rice-1.tif''. By having this original image, boundary that will be set using binarized image 
+Open file \textbf{rice.tif} again. Since there is already a window with the same title, this second one 
+should have a title ``rice-1.tif''. By having this original image, boundaries that will be set using the binarized image 
 will be "redirected" when measurement is actually taking place\footnote{ It is also possible to 
 do the measurement without redirecting: for example, you could simply image-threshold, and while the image is highlighted with red, (do not click Apply button) and do ``Analyze particle''. This will then detect particles which are highlighted.}. 
 
@@ -409,14 +424,14 @@ In addition, set ``redirect to'' to the original image (rice-1.tif) so
 that the measurement will be done with the original image and not with 
 the thresholded image. 
 
-Activate the threshold the image, and then do \ijmenu{[Analyze Analyze
+Activate the thresholded image, and then do \ijmenu{[Analyze > Analyze
 Particles\ldots]}. A dialog window pops up. Input following
 parameters:
 \begin{itemize}
-\item Size: "0-200" size above 200 pixel area will be excluded from the measurement
+\item Size: "0-200", i.e. size above 200 pixel area will be excluded from the measurement
 \item Circularity: use default "0-1.0"
 \item Show: Outline
-\item Checkbox:
+\item Check box:
 \begin{itemize} 
 \item Check "Display Results" to display the result table.
 \item Check "Clear Results" to refresh the measurement recordings.
@@ -433,7 +448,7 @@ only part of the particles are included.
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=10cm]{img/CMCIBasicCourse201102-img120.jpg}
+\includegraphics[width=10cm]{fig/CMCIBasicCourse201102-img120.jpg}
 \caption{ Multiple particle Analysis}
 \label{fig:img120}
 \end{center}
@@ -449,34 +464,42 @@ different parameter values.
 
 Segmentation could also be done by letting computer to learn what you
 think as signal and background. To do so, one could use machine
-learning technology with your instruction. We use
-\textbf{Trainable Segmentation plugin}.
-In brief, you mark what you decide as signal and background, and then
-let the algorithm to "Train" the
-classifier of the image. Classifier is a flexible virtual machine
-that studies your markings and it comes up with a protocol to
-categorize each pixel into classes. 
+learning algorithms. 
+
+We use the \textbf{Trainable Segmentation plugin}.
+In brief, you manually mark what you decide as signal and background, and then
+let the plugin to "Train"
+a classifier. The plugin studies your markings by combining many possible features and it comes up with a model to
+categorize each pixel into classes to output a segmented image. 
+ 
 When you start the plugin, you
-will see a window with image you want to segment, and buttons in the
-surrounding. Panel in left side is for commands, and the panel in right
-side is for assigning your markings either signal or background. There
+will see a window with the image you want to segment, and buttons in the
+surrounding. The panel in left side is for commands, and the panel in right
+side is for assigning your markings of either signal or background. There
 are only two classes on start up but you could add more classes (e.g.
-signal 1, signal 2, background) by "create new
+signal 1, signal 2, background) by clicking ``create new
 class" in the left panel (Fig. \ref{fig:img121}). 
 %figure
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=9.947cm,height=6.872cm]{img/CMCIBasicCourse201102-img121.png}
+\includegraphics[width=9.947cm,height=6.872cm]{fig/CMCIBasicCourse201102-img121.png}
 \caption{ Trainable Segmentation Window}
 \label{fig:img121}
 \end{center}
 \end{figure}
 
 \begin{indentexercise}{1}
-(This exercise is only available with Fiji)
-Open \textbf{rice.tif} and then select \ijmenu{[Plugins > Segmentation > Trainable Segmentation]}. Your task here is to segment rice grains using trainable segmentation. Zoom up the image
+(This exercise is only available with the Fiji distribution)
+
+Open \textbf{rice.tif} and then select 
+
+\ijmenu{[Plugins > Segmentation > Trainable Segmentation]}. 
+
+Your task here is to segment rice grains using trainable segmentation. Zoom up the image
 using magnifying tool as usual image. Then choose free hand ROI tool,
-start marking a rice grain. If you are satisfied with ROI, then click
+start marking a rice grain. 
+
+If you are satisfied with ROI, then click
 \ijmenu{Add to Class1}. Then
 again using freehand ROI tool, mark background. Then add this another
 class by \ijmenu{Add to Class2}. Your trainable segmentation window should look
@@ -485,24 +508,26 @@ something like Fig. \ref{fig:img122}.
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=9.001cm,height=6.447cm]{img/CMCIBasicCourse201102-img122.png}
+\includegraphics[width=9.001cm,height=6.447cm]{fig/CMCIBasicCourse201102-img122.png}
 \caption{ Marking signal and background}
 \label{fig:img122}
 \end{center}
 \end{figure}
 
-Click \ijmenu{Train Classifier} in the left panel, then calculation starts that takes for a while. When
-calculation finishes, you will see that most of rice overlaid red and background in green (Fig. \ref{fig:img123}). Zoom out the image and check again. You might see that some of rice grains are not segmented well -- so we should train more. Use freehand ROI tool to mark that was unfortunately categorized
-as background, and add it to class 1 (\ijmenu{Add to Class 1}). Then \ijmenu{Train
+Click \ijmenu{Train Classifier} in the left panel, then the calculation starts, which takes for a while. When
+calculation finishes, you will see that most of rice grains are overlaid in red and background in green (Fig. \ref{fig:img123}). Zoom out the image and check again. You might see that some rice grains are not segmented well -- so we should train more. Use freehand ROI tool to mark that was unfortunately either categorized
+as background or partly missed, and add it to class 1 (\ijmenu{Add to Class 1}). Then \ijmenu{Train
 classifier}, check the segmentation results\ldots You
-could iterate such marking and training until you get a satisfactory
-segmentation result. TIP: You could delete specific trace already
-listed in Class listing by double clicking.
+could repeat such marking and training until you get a satisfactory
+segmentation result (Fig.~\ref{fig:img123}). 
+
+TIP: You could delete specific trace already
+listed in Class listing by double clicking it.
 
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=9cm]{img/CMCIBasicCourse201102-img123.png}
+\includegraphics[width=9cm]{fig/CMCIBasicCourse201102-img123.png}
 \caption{ After first round of trainable segmentation.}
 \label{fig:img123}
 \end{center}
@@ -514,22 +539,21 @@ A separate window with segmented image will open (Fig. \ref{fig:img124}).
 %figure
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=6cm]{img/CMCIBasicCourse201102-img124.png}
-\caption{ Segmentation Result of Trainable Segmentation Plugin}
+\includegraphics[width=6cm]{fig/CMCIBasicCourse201102-img124.png}
+\caption{ Segmentation Result of Trainable Segmentation PlugIn}
 \label{fig:img124}
 \end{center}
 \end{figure}
 
-To save the training data you did, click \ijmenu{save data}. 
-Saved *.arff file could be loaded later to segment another image 
+During the training, a set of feature data and its classes are generated. To save the data used for training, click \ijmenu{save data}. Saved *.arff file could be loaded later to segment another image 
 (should be rice in this case, of course!) using \ijmenu{Load data} button.
 
 \textbf{OPTIONAL} : Segmented image could be used as a mask to analyze original image. 
 To do so, open both the original \textbf{rice.tif} image and binary image (segmented rice.tif image).
 Then \ijmenu{[Analyze > Set Measurement]}, and set \ijmenu{redirect to} drop down menu to
-original image (rice.tif). Then activate the segmented image window, theshold the image (but do not
+original image (rice.tif). Then activate the segmented image window, threshold the image (but do not
 "apply"), and do particle analysis. 
-Detecton of particles are done in the segmented image, and
+Detection of particles are done in the segmented image, and
 measurements will be redirected to corresponding particle areas in the
 original image.  
 \end{indentexercise}
@@ -554,7 +578,7 @@ You can draw histogram of the results in the "Results" window by using a
 function associated with the Result window \ijmenu{[Edit > Distribution\ldots]}.\\
 
 {\centering 
-\includegraphics[width=7cm]{img/CMCIBasicCourse201102-img125.png}
+\includegraphics[width=7cm]{fig/CMCIBasicCourse201102-img125.png}
 \par}
 
 \textbf{\sffamily
@@ -563,7 +587,7 @@ Assignment 1-4-2  DIC images of cells. }
 Find the boundary of this cell (dic\_cell.tif) using any of your favorite image segmentation techniques.\\
 
 {\centering 
-\includegraphics[width=7cm]{img/CMCIBasicCourse201102-img126.png}
+\includegraphics[width=7cm]{fig/CMCIBasicCourse201102-img126.png}
 \par}
 
 \textbf{\sffamily
@@ -580,7 +604,7 @@ calculate
 Note: image segmentation may be complicated by the low light levels in the image. \\
 
 {\centering 
-\includegraphics[width=10cm]{img/CMCIBasicCourse201102-img127.jpg}
+\includegraphics[width=10cm]{fig/CMCIBasicCourse201102-img127.jpg}
 \par}
 
 \textbf{\sffamily
@@ -594,6 +618,6 @@ the cells. You may operate on any of the color channels in the image
 many of the cells are touching.  \\
 
 {\centering 
-\includegraphics[width=10cm]{img/CMCIBasicCourse201102-img128.jpg}
+\includegraphics[width=10cm]{fig/CMCIBasicCourse201102-img128.jpg}
 \par}
 
